@@ -2,10 +2,8 @@ import org.junit.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import javax.swing.*;
 import java.util.concurrent.TimeUnit;
+
 
 public class MainTestClass {
 
@@ -66,6 +64,7 @@ public class MainTestClass {
 
     @Test
     public void SmokeTest() {
+        mainPage.selectDelivery("Завтра", "01:00");
         String restaurantName = "Coffee Like";
         mainPage.restaurantChoice(restaurantName);
         mainPage.chooseProduct("Популярные блюда", "Капучино");
