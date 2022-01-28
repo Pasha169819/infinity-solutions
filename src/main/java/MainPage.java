@@ -45,11 +45,6 @@ public class MainPage {
     }
     //Метод ввода локации (получает значение адрес, открывает поле ввода, вводит адрес, нажимает кнопку "Ок"
 
-    public String locationResult(){
-        return driver.findElement(addressButton).getText();
-    }
-    //Метод возвращает текущий адрес
-
     public void selectOption(String options){
         String sortOptions = String.format("//ul[@class=\"DesktopCatalogBduPageSort_options\"]//span[text()='%s']",options);
         driver.findElement(sortButton).click();
@@ -76,7 +71,7 @@ public class MainPage {
         String dishChoice = String.format("//nav[@class=\"DesktopCatalogPageFiltersBdu_root\"]//a[text()='%s']", dishName);
         driver.findElement(By.xpath(dishChoice)).click();
     }
-    //Метод выбора подборки ресторанов по блюду или кухне(получает значение блюда или кухни и нажимает соответствующую кнопку
+    //Метод выбора подборки ресторанов по блюду или кухне(получает значение блюда или кухни и нажимает соответствующую кнопку)
 
     public void restaurantChoice(String restaurantName) {
         String restaurant = String.format("//h2[text()=\"Все рестораны\"]/parent::*/following-sibling::*//h3[text()='%s']", restaurantName);
@@ -87,7 +82,7 @@ public class MainPage {
     public String getRestaurantName(){
         return driver.findElement(restaurantHeaderName).getText();
     }
-    //Мето получает название ресторана в карточке ресторана
+    //Метод получает название ресторана в карточке ресторана
 
     public void chooseProduct(String categoryName, String productName){
         String product = String.format("//h2[text()='%s']/parent::*/parent::*/parent::*/following-sibling::*//h3[text()='%s']", categoryName, productName);
