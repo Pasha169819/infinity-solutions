@@ -1,12 +1,17 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class MainPage {
     private WebDriver driver;
+    private WebDriverWait wait;
 
-    public MainPage(WebDriver driver){
+    public MainPage(WebDriver driver, WebDriverWait wait){
         this.driver = driver;
+        this.wait =wait;
     }
 
 
@@ -21,6 +26,9 @@ public class MainPage {
     private By restaurantHeaderName = By.xpath("//h1[@class=\"RestaurantPageHeader_name\"]");   //Локатор названия ресторана
     private By addButton = By.xpath("//button//span[text()=\"Добавить\"]"); //Локатор кнопки "Добавить"
     private By checkoutButton = By.xpath("//button//span[text()=\"Оформить заказ\"]");  //Локатор кнопки "Оформить заказ"
+    private By basketButton = By.xpath("//button[@data-testid=\"ui-animated-button\"]//span[@class=\"UIAnimatedButton_children UiKitRetailHeader_cartButton\"]");
+    private By paymentButton = By.xpath("//button[@data-testid=\"ui-animated-button\"]//div[text()=\"К оплате\"]");
+
 
     public void Search(String searchRequest){
         driver.findElement(searchInput).sendKeys(searchRequest);
@@ -32,6 +40,28 @@ public class MainPage {
         return driver.findElement(searchInput).getAttribute("value");
     }
     //Метод возвращает результат поискового запроса
+
+    public  void ChoiceOfResult(String searchTitle){
+        String choiceName = String.format("//div[@class=\"DesktopSearchPlaceCarousel_info\"]/h2[text()='%s']", searchTitle);
+        driver.findElement(By.xpath(choiceName)).click();
+    }
+
+    public void StoreCategorySelection(String categoryName){
+        String catName = String.format("//ul//div[text()='%s']", categoryName);
+        driver.findElement(By.xpath(catName)).click();
+        String catTitle = String.format("//h1[text()='%s']",categoryName);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(catTitle)));
+    }
+
+    public void ProductSelection(String productName) {
+        String prName = String.format("//ul[@class=\"DesktopGoodsList_list\"]//div[text()='%s']/parent::*/following-sibling::*/button", productName);
+        driver.findElement(By.xpath(prName)).click();
+    }
+
+    public void Order(){
+        driver.findElement(basketButton).click();
+        driver.findElement(paymentButton).click();
+    }
 
     public void location(String address){
         driver.findElement(addressButton).click();
