@@ -26,8 +26,8 @@ public class MainPage {
     private By restaurantHeaderName = By.xpath("//h1[@class=\"RestaurantPageHeader_name\"]");   //Локатор названия ресторана
     private By addButton = By.xpath("//button//span[text()=\"Добавить\"]"); //Локатор кнопки "Добавить"
     private By checkoutButton = By.xpath("//button//span[text()=\"Оформить заказ\"]");  //Локатор кнопки "Оформить заказ"
-    private By basketButton = By.xpath("//button[@data-testid=\"ui-animated-button\"]//span[@class=\"UIAnimatedButton_children UiKitRetailHeader_cartButton\"]");
-    private By paymentButton = By.xpath("//button[@data-testid=\"ui-animated-button\"]//div[text()=\"К оплате\"]");
+    private By basketButton = By.xpath("//button[@data-testid=\"ui-animated-button\"]//span[@class=\"UIAnimatedButton_children UiKitRetailHeader_cartButton\"]");   //Локатор иконки корзины
+    private By paymentButton = By.xpath("//button[@data-testid=\"ui-animated-button\"]//div[text()=\"К оплате\"]"); //Локатор кнопки "К оплате"
 
 
     public void Search(String searchRequest){
@@ -45,6 +45,7 @@ public class MainPage {
         String choiceName = String.format("//div[@class=\"DesktopSearchPlaceCarousel_info\"]/h2[text()='%s']", searchTitle);
         driver.findElement(By.xpath(choiceName)).click();
     }
+    //Метод выбора ресторана или супермаркета в разделе поиска(получает название ресторана/супермаркета и открывает его
 
     public void StoreCategorySelection(String categoryName){
         String catName = String.format("//ul//div[text()='%s']", categoryName);
@@ -52,16 +53,24 @@ public class MainPage {
         String catTitle = String.format("//h1[text()='%s']",categoryName);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(catTitle)));
     }
+    //Метод выбора категории в каталоге супермаркета(получает название категории, открывает её и ждет, пока она откроется)
 
     public void ProductSelection(String productName) {
         String prName = String.format("//ul[@class=\"DesktopGoodsList_list\"]//div[text()='%s']/parent::*/following-sibling::*/button", productName);
         driver.findElement(By.xpath(prName)).click();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
+    //Метод выбора продукта(получает название продукта и добавляет его в корзину)
 
     public void Order(){
         driver.findElement(basketButton).click();
         driver.findElement(paymentButton).click();
     }
+    //Метод оформления заказа
 
     public void location(String address){
         driver.findElement(addressButton).click();

@@ -29,26 +29,8 @@ public class MainTestClass {
     public void Search(){
         String searchRequest = "суши";   //Создаем переменную и указываем текст запроса("суши")
         mainPage.Search(searchRequest);   //Метод поиска (получает текст запроса, вставляет его в поисковую строку, нажимает кнопку найти
-        String searchResult = mainPage.SearchResult();  //получает текущее значение запроса
-        Assert.assertEquals(searchRequest, searchResult);  //сравнивает ожидаемый запрос и фактический
-    }
-
-    @Test
-    public void SearchStore(){
-        String searchRequest = "Ашан";   //Создаем переменную и указываем текст запроса("суши")
-        mainPage.Search(searchRequest);   //Метод поиска (получает текст запроса, вставляет его в поисковую строку, нажимает кнопку найти
-        String searchResult = mainPage.SearchResult();  //получает текущее значение запроса
-        Assert.assertEquals(searchRequest, searchResult);  //сравнивает ожидаемый запрос и фактический
-        mainPage.ChoiceOfResult("Ашан Гипермаркет");
-        mainPage.StoreCategorySelection("Овощи и зелень");
-        mainPage.ProductSelection("Томаты черри");
-        mainPage.StoreCategorySelection("Мясо и птица");
-        mainPage.ProductSelection("Крылышки куриные Глазовская Птица охлажденные 0,5-0,7 кг, 1 упаковка ~");
-        mainPage.StoreCategorySelection("Молоко и яйца");
-        mainPage.ProductSelection("Молоко Простоквашино Отборное пастеризованное, 4.5%");
-        mainPage.StoreCategorySelection("Сладости");
-        mainPage.ProductSelection("Шоколад Milka Bubbles белый пористый с фундуком");
-        mainPage.Order();
+        String searchResult = mainPage.SearchResult();  //Получает текущее значение запроса
+        Assert.assertEquals(searchRequest, searchResult);  //Сравнивает ожидаемый запрос и фактический
     }
 
     @Test
@@ -75,7 +57,7 @@ public class MainTestClass {
     }
 
     @Test
-    public void SmokeTest() {
+    public void SmokeTestRestaurant() {
         mainPage.selectDelivery("Завтра", "02:00");  //Метод выбора параметров доставки(получает значения параметров доставки("Завтра", "01:00", открывает параметры доставки, выбирает день и время доставки, нажимает кнопку "Показать"
         String restaurantName = "Coffee Like";  //Создаем переменную и указываем название ресторана "Coffee Like"
         mainPage.restaurantChoice(restaurantName);  //Метод выбора ресторана(получает название ресторана и выбирает его)
@@ -84,6 +66,24 @@ public class MainTestClass {
         mainPage.optionsProductCheckbox("Добавки", "Сахар");  //Метод выбора параметров продукта с помощью чекбоксов(получает название категории("Добавки") и опции("Сахар"), выбирает соответствующий чекбокс
         mainPage.addProducts();  //Метод для добавления товара в корзину
         mainPage.checkout();  //Метод для нажатия кнопки "Оформить заказ"
+    }
+
+    @Test
+    public void SmokeTestSupermarket(){
+        String searchRequest = "Ашан";   //Создаем переменную и указываем текст запроса("суши")
+        mainPage.Search(searchRequest);   //Метод поиска (получает текст запроса, вставляет его в поисковую строку, нажимает кнопку найти
+        String searchResult = mainPage.SearchResult();  //получает текущее значение запроса
+        Assert.assertEquals(searchRequest, searchResult);  //сравнивает ожидаемый запрос и фактический
+        mainPage.ChoiceOfResult("Ашан Гипермаркет");  //Метод выбора ресторана или супермаркета в разделе поиска(получает название супермаркета("Ашан Гипермаркет") и открывает его
+        mainPage.StoreCategorySelection("Овощи и зелень");  //Метод выбора категории в каталоге супермаркета(получает название категории("Овощи и зелень"), открывает её и ждет, пока она откроется)
+        mainPage.ProductSelection("Томаты черри");  //Метод выбора продукта(получает название продукта("Томаты черри") и добавляет его в корзину)
+        mainPage.StoreCategorySelection("Мясо и птица");    //Метод выбора категории в каталоге супермаркета
+        mainPage.ProductSelection("Крылышки куриные Глазовская Птица охлажденные 0,5-0,7 кг, 1 упаковка ~");    //Метод выбора продукта
+        mainPage.StoreCategorySelection("Молоко и яйца");   //Метод выбора категории в каталоге супермаркета
+        mainPage.ProductSelection("Молоко Первый вкус  2.5%");   //Метод выбора продукта
+        mainPage.StoreCategorySelection("Сладости");    //Метод выбора категории в каталоге супермаркета
+        mainPage.ProductSelection("Шоколад Milka Bubbles белый пористый с фундуком");   //Метод выбора продукта
+        mainPage.Order();   //Метод оформления заказа
     }
 
 //    @After
