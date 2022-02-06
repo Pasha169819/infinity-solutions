@@ -14,7 +14,7 @@ public class MainTestClass {
 
     @Before
     public void setUp(){
-        System.setProperty("webdriver.edge.driver", "C:\\Users\\pasha\\IdeaProjects\\Infinnity Solutions\\Drivers\\msedgedriver.exe");  //устанавливаем путь к драйверу
+        System.setProperty("webdriver.edge.driver", "./src/Drivers/msedgedriver.exe");  //устанавливаем путь к драйверу
         driver = new EdgeDriver();  //Инициализируем драйвер
         WebDriverWait wait = new WebDriverWait(driver, 5);
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);  //Задаем неявное ожидание
