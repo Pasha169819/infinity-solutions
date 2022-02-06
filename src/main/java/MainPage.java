@@ -29,32 +29,32 @@ public class MainPage {
     private By basketButton = By.xpath("//button[@data-testid=\"ui-animated-button\"]//span[@class=\"UIAnimatedButton_children UiKitRetailHeader_cartButton\"]");   //Локатор иконки корзины
     private By paymentButton = By.xpath("//button[@data-testid=\"ui-animated-button\"]//div[text()=\"К оплате\"]"); //Локатор кнопки "К оплате"
 
-
+    //Метод поиска (получает текст запроса, вставляет его в поисковую строку, нажимает кнопку найти
     public void Search(String searchRequest){
         driver.findElement(searchInput).sendKeys(searchRequest);
         driver.findElement(searchButton).click();
     }
-    //Метод поиска (получает текст запроса, вставляет его в поисковую строку, нажимает кнопку найти
 
+    //Метод возвращает результат поискового запроса
     public String SearchResult(){
         return driver.findElement(searchInput).getAttribute("value");
     }
-    //Метод возвращает результат поискового запроса
 
+    //Метод выбора ресторана или супермаркета в разделе поиска(получает название ресторана/супермаркета и открывает его
     public  void ChoiceOfResult(String searchTitle){
         String choiceName = String.format("//div[@class=\"DesktopSearchPlaceCarousel_info\"]/h2[text()='%s']", searchTitle);
         driver.findElement(By.xpath(choiceName)).click();
     }
-    //Метод выбора ресторана или супермаркета в разделе поиска(получает название ресторана/супермаркета и открывает его
 
+    //Метод выбора категории в каталоге супермаркета(получает название категории, открывает её и ждет, пока она откроется)
     public void StoreCategorySelection(String categoryName){
         String catName = String.format("//ul//div[text()='%s']", categoryName);
         driver.findElement(By.xpath(catName)).click();
         String catTitle = String.format("//h1[text()='%s']",categoryName);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(catTitle)));
     }
-    //Метод выбора категории в каталоге супермаркета(получает название категории, открывает её и ждет, пока она откроется)
 
+    //Метод выбора продукта(получает название продукта и добавляет его в корзину)
     public void ProductSelection(String productName) {
         String prName = String.format("//ul[@class=\"DesktopGoodsList_list\"]//div[text()='%s']/parent::*/following-sibling::*/button", productName);
         driver.findElement(By.xpath(prName)).click();
@@ -64,14 +64,14 @@ public class MainPage {
             e.printStackTrace();
         }
     }
-    //Метод выбора продукта(получает название продукта и добавляет его в корзину)
 
+    //Метод оформления заказа
     public void Order(){
         driver.findElement(basketButton).click();
         driver.findElement(paymentButton).click();
     }
-    //Метод оформления заказа
 
+    //Метод ввода локации (получает значение адрес, открывает поле ввода, вводит адрес, нажимает кнопку "Ок"
     public void location(String address){
         driver.findElement(addressButton).click();
         driver.findElement(addressInput).sendKeys(address, Keys.ENTER);
@@ -82,16 +82,16 @@ public class MainPage {
         }
         driver.findElement(okButton).click();
     }
-    //Метод ввода локации (получает значение адрес, открывает поле ввода, вводит адрес, нажимает кнопку "Ок"
 
+    //Метод выбора параметра сортировки(получает значение параметра сортировки, открывает параметры сортировки, выбирает параметр, нажимает кнопку "Показать"
     public void selectOption(String options){
         String sortOptions = String.format("//ul[@class=\"DesktopCatalogBduPageSort_options\"]//span[text()='%s']",options);
         driver.findElement(sortButton).click();
         driver.findElement(By.xpath(sortOptions)).click();
         driver.findElement(showButton).click();
     }
-    //Метод выбора параметра сортировки(получает значение параметра сортировки, открывает параметры сортировки, выбирает параметр, нажимает кнопку "Показать"
 
+    //Метод выбора параметров доставки(получает значения параметров доставки, открывает параметры доставки, выбирает день и время доставки, нажимает кнопку "Показать"
     public void selectDelivery(String day, String time){
         String dayOptions = String.format("//ul[@class=\"DesktopDeliveryTimePane_buttons\"]/li[text()='%s']", day);
         String timeOptions = String.format("//ul[@class=\"DesktopDeliveryTimePane_timeList\"]/li[text()='%s']", time);
@@ -104,52 +104,51 @@ public class MainPage {
             e.printStackTrace();
         }
     }
-    //Метод выбора параметров доставки(получает значения параметров доставки, открывает параметры доставки, выбирает день и время доставки, нажимает кнопку "Показать"
 
+    //Метод выбора подборки ресторанов по блюду или кухне(получает значение блюда или кухни и нажимает соответствующую кнопку)
     public void dishChoice(String dishName){
         String dishChoice = String.format("//nav[@class=\"DesktopCatalogPageFiltersBdu_root\"]//a[text()='%s']", dishName);
         driver.findElement(By.xpath(dishChoice)).click();
     }
-    //Метод выбора подборки ресторанов по блюду или кухне(получает значение блюда или кухни и нажимает соответствующую кнопку)
 
+    //Метод выбора ресторана(получает название ресторана и выбирает его
     public void restaurantChoice(String restaurantName) {
         String restaurant = String.format("//h2[text()=\"Все рестораны\"]/parent::*/following-sibling::*//h3[text()='%s']", restaurantName);
         driver.findElement(By.xpath(restaurant)).click();
     }
-    //Метод выбора ресторана(получает название ресторана и выбирает его
 
+    //Метод получает название ресторана в карточке ресторана
     public String getRestaurantName(){
         return driver.findElement(restaurantHeaderName).getText();
     }
-    //Метод получает название ресторана в карточке ресторана
 
+    //Метод выбора продукта из категории(получает название категории, продукта и выбирает его
     public void chooseProduct(String categoryName, String productName){
         String product = String.format("//h2[text()='%s']/parent::*/parent::*/parent::*/following-sibling::*//h3[text()='%s']", categoryName, productName);
         driver.findElement(By.xpath(product)).click();
     }
-    //Метод выбора продукта из категории(получает название категории, продукта и выбирает его
 
+    //Метод выбора параметров продукта с помощью радиокнопок(получает название категории и опции, выбирает соответствующую радиокнопку
     public void optionsProductRadioButton(String categoryName, String optionsName){
         String options = String.format("//div[@class=\"ModalOptionsGroup_root\"]//div[text()='%s']/parent::*/parent::*/following-sibling::*//span[text()='%s']/parent::*/preceding-sibling::*//input", categoryName, optionsName);
         driver.findElement(By.xpath(options)).click();
     }
-    //Метод выбора параметров продукта с помощью радиокнопок(получает название категории и опции, выбирает соответствующую радиокнопку
 
+    //Метод выбора параметров продукта с помощью чекбоксов(получает название категории и опции, выбирает соответствующий чекбокс
     public void optionsProductCheckbox(String categoryName, String optionsName){
         String options = String.format("//div[@class=\"ModalOptionsGroup_root\"]//div[text()='%s']/parent::*/parent::*/following-sibling::*//span[text()='%s']/parent::*/preceding-sibling::*//input", categoryName, optionsName);
         if(!driver.findElement(By.xpath(options)).isSelected())
             driver.findElement(By.xpath(options)).click();
     }
-    //Метод выбора параметров продукта с помощью чекбоксов(получает название категории и опции, выбирает соответствующий чекбокс
 
+    //Метод для добавления товара в корзину
     public void addProducts(){
         driver.findElement(addButton).click();
     }
-    //Метод для добавления товара в корзину
 
+    //Метод для нажатия кнопки "Оформить заказ"
     public void checkout(){
         driver.findElement(checkoutButton).click();
     }
-    //Метод для нажатия кнопки "Оформить заказ"
 
 }
